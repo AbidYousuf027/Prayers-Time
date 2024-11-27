@@ -1,0 +1,44 @@
+
+.prayer-time-row {
+  background-color: #177198fe;; 
+  
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  padding: 12px 16px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.prayer-time-row:hover {
+
+  color: #000;
+  background-color: red;
+
+}
+
+.text-white h6 {
+  margin-bottom: 4px;
+}
+
+#displayAllTime h6 {
+  font-size: 14px;
+}
+
+h4, h5 {
+  margin: 0;
+}
+.prayer-item.active-prayer {
+  background-color: green !important;
+  color: #ffffff;
+}
+
+.prayer-item.ending-prayer {
+  
+  background-color:red !important;
+  color: #ffffff;
+
+}
+.prayer-stop.ending-prayer{
+  outline: 0.15rem solid red !important;
+}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prayer Time App</title>
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="namaz.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="assets/icons/icon-48x48.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-96x96.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-144x144.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-384x384.png" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-512x512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+    <meta name="theme-color" content="#db4938" />
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.46/moment-timezone-with-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment-hijri@3.0.0/moment-hijri.js"></script>
+
+
+</head>
+
+<body style="background-color: #f8f9fa; color: #2c3e50;">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="./namaz.html">
+                <img src="assets/icons/icon-48x48.png" alt="App Icon" />
+                Prayers Time App
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./login.html">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="Logout" class="btn btn-outline-danger">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+
+        <div class="text-dark mb-2 p-3 rounded shadow-lg bg-dark">
+            <div class="top-container rounded mb-2 p-3" style="background-color: #177198fe; ">
+
+                <div class="row">
+                    <div class="col mt-3 text-center text-white">
+                        <h4 class="mb-4">Prayer Times</h4>
+
+                        <div class="text-white">
+                            <h6><span id="currentPrayerName"></span>
+                                <span style="display: none;" id="currentPrayerTime"></span>
+                            </h6>
+                            <h6><span id="nextPrayerName" style="display: none;"></span></h6>
+                            <h6><span id="remainingTime"></span></h6>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row align-items-center">
+
+                    <div class="col-auto">
+                        <a href="#">
+                            <img src="assets/icons/icon-72x72.png" alt="App Icon" />
+                        </a>
+                    </div>
+
+                    <div class="col text-end text-white" id="displayAllTime">
+                        <h6 id="islamic-date"></h6>
+                        <h6 id="gregorian-date"></h6>
+                        <h6 id="GMT-timeZone"></h6>
+                        <h6 id="time"></h6>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bottom-container">
+                <div id="coordinates"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row">
+                    <span id="latitude" class="text-center fw-bold mb-0"></span> | <span id="longitude"
+                        class="text-center fw-bold mb-0"></span>
+                </div>
+
+                <div id="fajr"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-item">
+                    <h4 class="text-center mb-0">Fajr</h4>
+                    <h5 id="fajr-time" class="text-center mb-0"></h5>
+                </div>
+                <div id="sunrise"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-stop">
+                    <h4 class="text-center mb-0">Sunrise</h4>
+                    <h5 id="sunrise-time" class="text-center mb-0"></h5>
+                </div>
+                <div id="dhuhr"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-item">
+                    <h4 class="text-center mb-0">Zuhr</h4>
+                    <h5 id="zuhr-time" class="text-center mb-0"></h5>
+                </div>
+                <div id="asr"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-item">
+                    <h4 class="text-center mb-0">Asr</h4>
+                    <h5 id="asr-time" class="text-center mb-0"></h5>
+                </div>
+                <div id="maghrib"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-item">
+                    <h4 class="text-center mb-0">Maghrib</h4>
+                    <h5 id="maghrib-time" class="text-center mb-0"></h5>
+                </div>
+                <div id="isha"
+                    class="col-12 d-flex justify-content-between align-items-center py-2 my-1 prayer-time-row prayer-item">
+                    <h4 class="text-center mb-0">Isha</h4>
+                    <h5 id="isha-time" class="text-center mb-0"></h5>
+                </div>
+
+            </div>
+
+           
+            
+        </div>
+    </main>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="namaz.js"></script>
+</body>
+
+
+</html>
