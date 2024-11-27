@@ -135,7 +135,7 @@ const getPrayerTimes = async (lat, long) => {
     console.log(data);
     if (data.code === 200 && data.data && data.data && data.data.timings) {
       updatePrayerTimesUI(data.data.timings);
-   
+
       setInterval(updatePrayerStyle, 60000);
     } else {
       console.error("Error in response from API:", data);
@@ -176,7 +176,7 @@ const updatePrayerTimesUI = (timings) => {
         element.innerText = prayerData.time.toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
-          
+
           hour12: false,
           timeZone: "Asia/Karachi",
         });
@@ -203,7 +203,6 @@ const updatePrayerTime = () => {
   let currentPrayer = null;
   let nextPrayer = null;
 
- 
   for (let i = 0; i < prayerTimes.length; i++) {
     const prayerTime = new Date(prayerTimes[i].time);
 
@@ -221,30 +220,26 @@ const updatePrayerTime = () => {
   }
 
   if (currentPrayer && nextPrayer) {
-  
     let nextPrayerTime = new Date(nextPrayer.time);
     if (nextPrayerTime < karachiNow) {
-      
       nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
     }
 
-    
     const timeDifference = nextPrayerTime - karachiNow;
-    const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60)); 
-    const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)); 
+    const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutesRemaining = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
 
-   
     document.getElementById(
       "currentPrayerName"
     ).innerText = `${currentPrayer.name}`;
     document.getElementById("currentPrayerTime").innerText =
       currentPrayer.time.toLocaleTimeString("en-GB", { hour12: false });
 
-   
-   
-    document.getElementById(
-      "remainingTime"
-    ).innerText = `0${hoursRemaining}:${minutesRemaining}`;
+    document.getElementById("remainingTime").innerText = `${hoursRemaining
+      .toString()
+      .padStart(2, "0")}:${minutesRemaining.toString().padStart(2, "0")}`;
   } else {
     console.error("Failed to determine current or next prayer.");
   }
@@ -257,21 +252,18 @@ function updatePrayerStyle() {
 
   prayerTimes.forEach((prayer, i) => {
     const element = document.getElementById(prayer.name.toLowerCase());
-   
-    if (!element) return; 
+
+    if (!element) return;
 
     const nextPrayer = prayerTimes[i + 1] || prayerTimes[0];
- 
+
     const currentPrayerTime = new Date(prayer.time);
 
     let nextPrayerTime = new Date(nextPrayer.time);
- 
 
-   
     if (nextPrayerTime < currentPrayerTime) {
       nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
     }
-    
 
     const remainingMinutes = Math.floor((nextPrayerTime - now) / (1000 * 60));
 
@@ -286,8 +278,6 @@ function updatePrayerStyle() {
     }
   });
 }
-
-
 
 const logoutBtn = document.getElementById("Logout");
 logoutBtn.addEventListener("click", () => {
